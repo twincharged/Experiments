@@ -82,14 +82,15 @@ function Listen(el, ob) {
 
 
 
+
+
+
 var person = {
   name: "James"
 }
 
 Bind(person)
 
-
-setTimeout(function(){person.name="Jose"},500)
-setTimeout(function(){person.age=22},700)
+setTimeout(function(){person.name="Jose";person.age=22},500)
 
 
