@@ -50,16 +50,9 @@ function Bind(ob) {
   }
 }
 
-function Listen(el, ob) {
-  el.addEventListener("keydown", function(e){
-    ob[this.getAttribute("bind")] = this.value  // Need to stop ∞ setter loop :(
-    e.preventDefault()
-  })
-}
-
 function Watch(ob, attr) {
   var els = document.querySelectorAll("[bind='"+attr+"']")
-  Init(ob, attr, els)
+  Build(ob, attr, els)
   ob.watch(attr, function(id, ov, nv){
     for (var i=0;i<els.length;i++) {
       var el   = els[i],
@@ -71,13 +64,20 @@ function Watch(ob, attr) {
   })
 }
 
-function Init(ob, attr, els) {
+function Build(ob, attr, els) {
   for (var i=0;i<els.length;i++) {
     var el   = els[i],
         html = htmlType(el)
     el[html] = ob[attr]
     if (html === "value") Listen(el, ob);
   }
+}
+
+function Listen(el, ob) {
+  el.addEventListener("keydown", function(e){
+    ob[this.getAttribute("bind")] = this.value  // Need to stop ∞ setter loop :(
+    e.preventDefault()
+  })
 }
 
 
