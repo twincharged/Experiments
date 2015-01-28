@@ -1,5 +1,6 @@
 function matches(e,s){return (e.matches||e.matchesSelector||e.msMatchesSelector||e.mozMatchesSelector||e.webkitMatchesSelector||e.oMatchesSelector).call(e,s)}
 function htmlType(el){ return matches(el, "select, option, input, textarea")?"value":"innerHTML"}
+function contains(a, o) {var i = a.length;while (i--) {if (a[i] === o) return true;}return false;}
 
 if (!Object.prototype.watch) {
   Object.defineProperty(Object.prototype, "watch", {
@@ -7,22 +8,14 @@ if (!Object.prototype.watch) {
     configurable: true,
     writable: false,
     value: function (prop, handler) {
-      var
-        oldval = this[prop],
-        newval = oldval,
-        getter = function() { return newval; },
-        setter = function (val) {
-          oldval = newval;
-          return newval = handler.call(this, prop, oldval, val);
-      }			
-      if (delete this[prop]) { // can't watch constants
-        Object.defineProperty(this, prop, {
-          get: getter,
-          set: setter,
-          enumerable: true,
-          configurable: true
-        });
-      }
+      var oldval = this[prop],
+          newval = oldval,
+          getter = function() { return newval; },
+          setter = function (val) {
+            oldval = newval;
+            return newval = handler.call(this, prop, oldval, val);
+          }			
+      if (delete this[prop]) Object.defineProperty(this, prop, { get: getter, set: setter, enumerable: true, configurable: true});
     }
   });
 }
@@ -38,13 +31,7 @@ if (!Object.prototype.unwatch) {
     }
   });
 }
-function contains(a, o) {
-  var i = a.length;
-  while (i--) {
-    if (a[i] === o) return true;
-  }
-  return false;
-}
+
 
 
 var person = {
