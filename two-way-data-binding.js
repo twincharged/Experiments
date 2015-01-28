@@ -35,12 +35,12 @@ if (!Object.prototype.unwatch) {
 
 
 var person = {
-  name: "Joe"
+  name: "James"
 }
 
 Bind(person)
 
-function Bind(ob){
+function Bind(ob) {
   var els   = document.querySelectorAll("[bind]"),
       types = []
   for (var i=0;i<els.length;i++) {
@@ -73,7 +73,7 @@ function Watch(ob, attr) {
   })
 }
 
-function Init(ob, attr, els){
+function Init(ob, attr, els) {
   for (var i=0;i<els.length;i++) {
     var el   = els[i],
         html = htmlType(el)
@@ -83,7 +83,7 @@ function Init(ob, attr, els){
 }
 
 
-setTimeout(function(){person.name="Joey"},500)
-setTimeout(function(){person.age=20},700)
+setTimeout(function(){person.name="Jose"},500)
+setTimeout(function(){person.age=22},700)
 
 
