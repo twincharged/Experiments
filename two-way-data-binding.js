@@ -34,11 +34,9 @@ if (!Object.prototype.unwatch) {
 
 
 
-var person = {
-  name: "James"
-}
 
-Bind(person)
+
+// FW
 
 function Bind(ob) {
   var els   = document.querySelectorAll("[bind]"),
@@ -81,6 +79,14 @@ function Init(ob, attr, els) {
     if (html === "value") Listen(el, ob);
   }
 }
+
+
+
+var person = {
+  name: "James"
+}
+
+Bind(person)
 
 
 setTimeout(function(){person.name="Jose"},500)
